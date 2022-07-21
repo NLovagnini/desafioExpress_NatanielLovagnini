@@ -14,14 +14,28 @@ const getAllProds = async () =>{
     return allProductsArr;
 }
 
-let products = getAllProds();
+const getRandomProd = async () =>{
+    const allProductsArr =  await prodContainer.read(file);
+    console.log(allProductsArr);
+    const getRandomInt = (max) =>{
+        return Math.floor(Math.random()* max)
+    }
+    const randomId = getRandomInt(allProductsArr.length)
+    ;
+    return allProductsArr[randomId]
+}
 
-app.get('/', (req, res) =>{
-    console.log(products)
+
+
+
+app.get('/productos', async (req, res) =>{
+    let products = await getAllProds();
+    res.json(products)
 })
 
-app.get('/productos', (req, res) =>{
-    res.json(products)
+app.get('/productoRandom', async (req, res) =>{
+    let randomProd = await getRandomProd();
+    res.json(randomProd)
 })
 
 

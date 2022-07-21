@@ -16,4 +16,12 @@ const getProdById = (id) =>{
     const newProductsArr = allProductsArr.filter((prod) => prod.id == id);
     return newProductsArr
 }
-
+ 
+const getRandomProd = async () =>{
+    const allProductsArr = await prodContainer.read(file);
+    const getRandomInt = (max) =>{
+        return Math.floor(Math.random()* max)
+    }
+    const randomId = getRandomInt(allProductsArr.length)
+    return allProductsArr[randomId]
+}
